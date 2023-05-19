@@ -44,12 +44,14 @@ def revenue_per_region(dp: DataProcessor) -> Dict:
     }
     """
     ######################################## YOUR CODE HERE ##################################################
+    dr = (row for row in dp.data_reader)
+    next(dr)
     result = {}
     for row in dr:
         if row["Country"] in result:
-            result[row["Country"]] += row["TotalPrice"]
+            result[row["Country"]] += dp.to_float(row["TotalPrice"])
         else:
-            result[row["Country"]] = row["TotalPrice"]
+            result[row["Country"]] = dp.to_float(row["TotalPrice"])
     return result
 
     ######################################## YOUR CODE HERE ##################################################
@@ -101,4 +103,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    #dp = DataProcessor('/workspace/course-python-4-production/data/tst/2015.csv')
+    #print(revenue_per_region(dp))
 
